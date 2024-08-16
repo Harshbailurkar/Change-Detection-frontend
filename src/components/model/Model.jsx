@@ -90,10 +90,10 @@ const ImageUploader = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-zinc-950">
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-md rounded-lg p-8 w-full max-w-4xl"
+        className="bg-zinc-900 shadow-md rounded-lg p-8 w-full max-w-4xl"
       >
         <h1 className="text-2xl font-semibold mb-6 text-center">
           Change Detection Tool
@@ -158,7 +158,7 @@ const ImageUploader = () => {
       </form>
 
       {currentStep > 0 && (
-        <div className="mt-8 bg-white shadow-md rounded-lg p-6 w-full max-w-4xl">
+        <div className="mt-8 bg-zinc-900 shadow-md rounded-lg p-6 w-full max-w-4xl">
           <h2 className="text-xl font-semibold mb-4 text-center">
             Processing Steps:
           </h2>
@@ -180,7 +180,7 @@ const ImageUploader = () => {
       )}
 
       {response && (
-        <div className="mt-8 bg-white shadow-md rounded-lg p-6 w-full max-w-4xl">
+        <div className="mt-8 bg-zinc-900 shadow-md rounded-lg p-6 w-full max-w-4xl">
           <div className="flex flex-col justify-center items-center">
             <div className="flex flex-wrap justify-center items-start">
               <div className="flex flex-col items-center p-4 md:w-1/3">
@@ -222,7 +222,7 @@ const ImageUploader = () => {
 
       {errorMessage && (
         <div
-          className="mt-8 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative w-full max-w-4xl text-center"
+          className="mt-8 bg-zinc-900 border border-red-400 text-red-700 px-4 py-3 rounded relative w-full max-w-4xl text-center"
           role="alert"
         >
           <span className="block sm:inline">{errorMessage}</span>

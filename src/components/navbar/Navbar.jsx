@@ -5,20 +5,22 @@ const Navbar = () => {
   return (
     <div className="navbar p-2 border-b border-gray-800">
       <div className="nav-logo">
-        <h1 className="text-2xl">ASHS</h1>
+        <a href="/">
+          <h1 className="text-2xl">ASHS</h1>
+        </a>
       </div>
 
       <div className="nav-items">
         <ul>
-          <a href="">
-            <li>About us</li>
-          </a>
-          <a href="">
-            <li>Demo</li>
-          </a>
-          <a href="">
-            <li>Contact</li>
-          </a>
+          <li>
+            <a href="#about">About us</a>
+          </li>
+          <li>
+            <a href="#demo">Demo</a>
+          </li>
+          <li>
+            <a href="#contact">Contact</a>
+          </li>
         </ul>
       </div>
     </div>
