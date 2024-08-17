@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
+import { generateReport } from "./ReportGenerator"; 
 import {
   FaSpinner,
   FaCheckCircle,
@@ -26,7 +27,17 @@ const ImageUploader = () => {
     "Performing Closing",
     "Generating Output",
   ];
-
+const handleGenerateReport = () => {
+  if (response && response.change_map_url) {
+    // Path to the local file in your assets folder
+    const imagePath = "src/assets/output_image/output.jpg";
+    // Your custom prompt
+    const prompt = "the image is a output of a change detection model in two different satellite images , the white part shows where changes occured and black shows no change , generate an report to describe it output image, ";
+    generateReport(imagePath, prompt); // Pass the file path and prompt to the function
+  } else {
+    console.error("No image available to generate report.");
+  }
+};
   const handleOldImageDrop = (acceptedFiles) => {
     setOldImage(acceptedFiles[0]);
   };
@@ -215,6 +226,13 @@ const ImageUploader = () => {
                 <FaDownload className="mr-2" />
                 Download Output Image
               </a>
+               {/* Generate Report Button */}
+        <button
+          onClick={handleGenerateReport}
+          className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center"
+        >
+          Generate Report
+        </button>
             </div>
           </div>
         </div>
