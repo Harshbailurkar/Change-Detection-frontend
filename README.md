@@ -19,7 +19,7 @@
 1. **Clone the repository:**
   - **Backend:**
     ```bash
-    git clone https://github.com/Harshbailurkar/Change-Detection-Human-Activities.git
+    git clone https://github.com/Harshbailurkar/Change-detection-due-to-human-activities.git
     ```
   - **Frontend:**
 ```bash
