@@ -20,28 +20,39 @@ const fileToBase64 = (filePath) => {
   });
 };
 
-export const generateReport = async (imagePath, prompt) => {
+export const generateReport = async (imagePath1, prompt1, imagePath2, prompt2) => {
   try {
-    const imageData = await fileToBase64(imagePath);
+    // Convert both images to base64
+    const imageData1 = await fileToBase64(imagePath1);
+    const imageData2 = await fileToBase64(imagePath2);
     
-    // Prepare the file part for API call
-    const filePart = {
+    // Prepare the file parts for API calls
+    const filePart1 = {
       inlineData: {
-        data: imageData,
+        data: imageData1,
+        mimeType: "image/png", // Adjust MIME type as needed
+      },
+    };
+    
+    const filePart2 = {
+      inlineData: {
+        data: imageData2,
         mimeType: "image/png", // Adjust MIME type as needed
       },
     };
 
-    // Generate content based on image and prompt
-    const result = await model.generateContent([filePart, { text: prompt }]);
+    // Generate content for the first image and prompt (ignoring response)
+    await model.generateContent([filePart1, { text: prompt1 }]);
 
-    // Handle the response (text-based content)
+    // Generate content for the second image and prompt
+    const result = await model.generateContent([filePart2, { text: prompt2 }]);
+
+    // Return the text of the second response
     const text = await result.response.text();
-
-    // Return the report text instead of opening it in a new tab
     return text;
+
   } catch (error) {
     console.error('Error generating report:', error);
-    throw error;
+    return null; // Return null in case of error
   }
 };

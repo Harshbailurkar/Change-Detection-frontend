@@ -30,38 +30,58 @@ const ImageUploader = () => {
   ];
 
 
-  const handleGenerateReport = async (img_url) => {
-    // Path to the local file in your assets folder
-    const imagePath = img_url;
-    const prompt = `Analyze the provided 
-change detection image and generate a comprehensive report in the following format:
+//   const handleGenerateReport = async (img_url) => {
+//     // Path to the local file in your assets folder
+//     const imagePath = img_url;
+//     const prompt = `Analyze the provided 
+// change detection image and generate a comprehensive report in the following format:
 
-Image ID: [Unique identifier]
-Analysis Date: [Date and time]
-Change Detection Model: [Model used]
+// Image ID: [Unique identifier]
+// Analysis Date: [Date and time]
+// Change Detection Model: [Model used]
 
-Overview
-Total Change Area: [Percentage or square units]
-Change Distribution: [General description of change locations]
-Change Type: [Summary of change categories, if applicable]
+// Overview
+// Total Change Area: [Percentage or square units]
+// Change Distribution: [General description of change locations]
+// Change Type: [Summary of change categories, if applicable]
 
-Detailed Analysis:
-Region-based Analysis:
-[Region 1]: [Change percentage, description]
-[Region 2]: [Change percentage, description]
-...
-Object-based Analysis:
-[Object 1]: [Location, size, change type, impact]
-[Object 2]: [Location, size, change type, impact]
-...
+// Detailed Analysis:
+// Region-based Analysis:
+// [Region 1]: [Change percentage, description]
+// [Region 2]: [Change percentage, description]
+// ...
+// Object-based Analysis:
+// [Object 1]: [Location, size, change type, impact]
+// [Object 2]: [Location, size, change type, impact]
+// ...
 
-Add spaces and paragraphs to make structure`;
-    try {
-      const reportText = await generateReport(imagePath, prompt);
-      setReport(reportText); // Set the report text
-    } catch (error) {
-      console.error("Error generating report:", error);
-      setErrorMessage("An error occurred while generating the report.");
+// Add spaces and paragraphs to make structure`;
+//     try {
+//       const reportText = await generateReport(imagePath, prompt);
+//       setReport(reportText); // Set the report text
+//     } catch (error) {
+//       console.error("Error generating report:", error);
+//       setErrorMessage("An error occurred while generating the report.");
+//     }
+//   };
+
+const handleGenerateReport = async (img1_url,img2_url) => {
+  const imagePath1 = img1_url;
+  const imagePath2 = img2_url;
+    if (oldImage && newImage) {
+      // Define prompts for both images
+      const prompt1 = `Analyze the provided old image and generate a comprehensive report in the following format: ...`;
+      const prompt2 = `Analyze the provided new image and generate a comprehensive report in the following format: ...`;
+
+      try {
+        const reportText = await generateReport(imagePath1,prompt1,imagePath2,prompt2);
+        setReport(reportText); // Set the report text
+      } catch (error) {
+        console.error("Error generating report:", error);
+        setErrorMessage("An error occurred while generating the report.");
+      }
+    } else {
+      setErrorMessage("Please upload both images before generating the report.");
     }
   };
   const handleOldImageDrop = (acceptedFiles) => {
@@ -254,7 +274,8 @@ Add spaces and paragraphs to make structure`;
               </a>
               {/* Generate Report Button */}
               <button
-                onClick={() => handleGenerateReport(response.change_map_url)}
+                  
+                onClick={() => handleGenerateReport(response.image1_url,response.image2_url)}
                 className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center"
               >
                 Generate Report
