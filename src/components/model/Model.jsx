@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
-import { generateReport } from "./ReportGenerator"; 
 import {
   FaSpinner,
   FaCheckCircle,
@@ -16,8 +15,6 @@ const ImageUploader = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [report, setReport] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const steps = [
     "Reading Images",
@@ -30,23 +27,6 @@ const ImageUploader = () => {
     "Generating Output",
   ];
 
-
-  const handleGenerateReport = async () => {
-    setLoading(true); // Start loading
-
-    // Path to the local file in your assets folder
-    const imagePath = "src/assets/output_image/output.jpg";
-   const prompt = `Analyze the provided change detection image and generate a comprehensive report in format,white shows changes occured black shows no changes `;
-    try {
-      const reportText = await generateReport(imagePath, prompt);
-      setReport(reportText); // Set the report text
-       setLoading(false);
-    } catch (error) {
-      console.error("Error generating report:", error);
-      setErrorMessage("An error occurred while generating the report.");
-       setLoading(false);
-    }
-  };
   const handleOldImageDrop = (acceptedFiles) => {
     setOldImage(acceptedFiles[0]);
   };
@@ -235,33 +215,10 @@ const ImageUploader = () => {
                 <FaDownload className="mr-2" />
                 Download Output Image
               </a>
-               {/* Generate Report Button */}
-        <button
-          onClick={handleGenerateReport}
-          className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center"
-        >
-          Generate Report
-        </button>
             </div>
           </div>
         </div>
       )}
-
-{loading && (
-  <div className="mt-8 flex justify-center items-center w-full max-w-4xl">
-    <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
-      <span className="sr-only">Loading...</span>
-    </div>
-    <span className="ml-2">Generating report, please wait...</span>
-  </div>
-)}
-
-{!loading && report && (
-  <div className="mt-8 bg-zinc-900 shadow-md rounded-lg p-6 w-full max-w-4xl">
-    <h2 className="text-xl font-semibold mb-4">Generated Report:</h2>
-    <p>{report}</p>
-  </div>
-)}
 
       {errorMessage && (
         <div
