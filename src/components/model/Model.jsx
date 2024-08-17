@@ -28,24 +28,34 @@ const ImageUploader = () => {
     "Performing Closing",
     "Generating Output",
   ];
-  /*const handleGenerateReport = () => {
-  if (response && response.change_map_url) {
-    
-    // Path to the local file in your assets folder
-    const imagePath = "src/assets/output_image/output.jpg";
-    // Your custom prompt
-    const prompt = "the image is a output of a change detection model in two different satellite images , the white part shows where changes occured and black shows no change , generate an report to describe it output image, ";
-    generateReport(imagePath, prompt); // Pass the file path and prompt to the function
-  } else {
-    console.error("No image available to generate report.");
-  }
-};*/
+
 
   const handleGenerateReport = async (img_url) => {
     // Path to the local file in your assets folder
     const imagePath = img_url;
-    const prompt =
-      "the image is a output of a change detection model in two different satellite images , the white part shows where changes occured and black shows no change , generate an report to describe it output image, ";
+    const prompt = `Analyze the provided 
+change detection image and generate a comprehensive report in the following format:
+
+Image ID: [Unique identifier]
+Analysis Date: [Date and time]
+Change Detection Model: [Model used]
+
+Overview
+Total Change Area: [Percentage or square units]
+Change Distribution: [General description of change locations]
+Change Type: [Summary of change categories, if applicable]
+
+Detailed Analysis:
+Region-based Analysis:
+[Region 1]: [Change percentage, description]
+[Region 2]: [Change percentage, description]
+...
+Object-based Analysis:
+[Object 1]: [Location, size, change type, impact]
+[Object 2]: [Location, size, change type, impact]
+...
+
+Add spaces and paragraphs to make structure`;
     try {
       const reportText = await generateReport(imagePath, prompt);
       setReport(reportText); // Set the report text
