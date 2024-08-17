@@ -16,6 +16,7 @@ const ImageUploader = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [report, setReport] = useState("");
 
   const steps = [
     "Reading Images",
@@ -27,8 +28,9 @@ const ImageUploader = () => {
     "Performing Closing",
     "Generating Output",
   ];
-const handleGenerateReport = () => {
+/*const handleGenerateReport = () => {
   if (response && response.change_map_url) {
+    
     // Path to the local file in your assets folder
     const imagePath = "src/assets/output_image/output.jpg";
     // Your custom prompt
@@ -37,7 +39,20 @@ const handleGenerateReport = () => {
   } else {
     console.error("No image available to generate report.");
   }
-};
+};*/
+
+  const handleGenerateReport = async () => {
+    // Path to the local file in your assets folder
+    const imagePath = "src/assets/output_image/output.jpg";
+    const prompt = "the image is a output of a change detection model in two different satellite images , the white part shows where changes occured and black shows no change , generate an report to describe it output image, ";
+    try {
+      const reportText = await generateReport(imagePath, prompt);
+      setReport(reportText); // Set the report text
+    } catch (error) {
+      console.error("Error generating report:", error);
+      setErrorMessage("An error occurred while generating the report.");
+    }
+  };
   const handleOldImageDrop = (acceptedFiles) => {
     setOldImage(acceptedFiles[0]);
   };
@@ -235,6 +250,14 @@ const handleGenerateReport = () => {
         </button>
             </div>
           </div>
+        </div>
+      )}
+
+       {/* Display Report */}
+      {report && (
+        <div className="mt-8 bg-zinc-900 shadow-md rounded-lg p-6 w-full max-w-4xl">
+          <h2 className="text-xl font-semibold mb-4">Generated Report:</h2>
+          <p>{report}</p>
         </div>
       )}
 

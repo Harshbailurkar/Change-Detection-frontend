@@ -37,12 +37,11 @@ export const generateReport = async (imagePath, prompt) => {
 
     // Handle the response (text-based content)
     const text = await result.response.text();
-    console.log(text);
 
-    // Display the report or handle as needed
-    // For example, you could display it in a new tab
-    window.open(URL.createObjectURL(new Blob([text], { type: 'text/plain' })), '_blank');
+    // Return the report text instead of opening it in a new tab
+    return text;
   } catch (error) {
     console.error('Error generating report:', error);
+    throw error;
   }
 };
