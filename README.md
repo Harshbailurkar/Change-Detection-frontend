@@ -20,9 +20,11 @@
    Backend :
     ```bash
     git clone https://github.com/Harshbailurkar/Change-Detection-Human-Activities.git
-    cd Change-Detection-Human-Activities
     ```
-
+   Frontend:
+```bash
+  git clone https://github.com/Harshbailurkar/Change-Detection-frontend.git
+```
 3. **Install dependencies:**
     - **Backend:**
       ```bash
