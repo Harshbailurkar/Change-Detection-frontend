@@ -17,11 +17,11 @@
 ## Installation
 
 1. **Clone the repository:**
-   Backend :
+  - **Backend:**
     ```bash
     git clone https://github.com/Harshbailurkar/Change-Detection-Human-Activities.git
     ```
-   Frontend:
+  - **Frontend:**
 ```bash
   git clone https://github.com/Harshbailurkar/Change-Detection-frontend.git
 ```
