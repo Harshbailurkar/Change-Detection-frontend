@@ -117,7 +117,18 @@ const ImageUploader = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-zinc-950">
+    <div className="flex flex-col items-center justify-center p-4 bg-zinc-950 mt-16">
+      <h1 className="text-4xl mb-6 text-center text-white">Try Now!</h1>
+      <div className="text-gray-400 mb-6 text-center">
+        <p>
+          Upload two images of the same area, captured at different times, to
+          detect changes between them.
+        </p>
+        <p>
+          Image 1 should represent the earlier timeframe, and Image 2 should
+          represent the more recent timeframe.
+        </p>
+      </div>
       <form
         onSubmit={handleSubmit}
         className="bg-zinc-900 shadow-md rounded-lg p-8 w-full max-w-4xl"
