@@ -1,20 +1,21 @@
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useState, useEffect, useMemo } from "react";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import * as THREE from "three";
 
-const Sphere = () => {
+const Sphere = ({ rotationSpeed, scale }) => {
   const texture = useLoader(TextureLoader, "/earthlights1k.jpg");
   const sphereRef = useRef();
 
   useFrame((state, delta) => {
-    // Further reduced rotation speed
-    sphereRef.current.rotation.y += delta * 0.2;
+    if (sphereRef.current) {
+      sphereRef.current.rotation.y += delta * rotationSpeed;
+      sphereRef.current.scale.set(scale, scale, scale);
+    }
   });
 
   return (
     <mesh ref={sphereRef}>
-      {/* Set the radius to 2 for a medium-sized globe */}
       <sphereGeometry args={[2, 64, 64]} />
       <meshStandardMaterial map={texture} />
     </mesh>
@@ -48,13 +49,13 @@ const Stars = () => {
   );
 };
 
-const Background = () => {
+const Background = ({ rotationSpeed, scale }) => {
   return (
     <div className="background">
       <Canvas style={{ background: "black" }}>
         <ambientLight intensity={1.5} />
         <pointLight position={[10, 10, 10]} />
-        <Sphere />
+        <Sphere rotationSpeed={rotationSpeed} scale={scale} />
         <Stars />
       </Canvas>
     </div>
