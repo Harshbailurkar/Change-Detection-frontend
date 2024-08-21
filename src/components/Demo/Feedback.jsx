@@ -21,7 +21,7 @@ export default function Feedback() {
       <div className="feedback-container bg-zinc-800 text-white w-2/3">
         {submitted ? (
           <div className="feedback-thank-you">
-            <p>Thank you for your feedback!</p>
+            <p className="text-white">Thank you for your feedback!</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="feedback-form">
